@@ -3,7 +3,7 @@ package google
 import (
 	"encoding/json"
 
-	"github.com/rehiy/one-llm/httpc"
+	"github.com/rehiy/one-llm/internal/httpc"
 )
 
 type Client struct {
