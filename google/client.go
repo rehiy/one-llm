@@ -11,7 +11,7 @@ type Client struct {
 	ApiVersion     string
 	ApiKey         string
 	Model          string
-	SafetySettings []*SafetySetting
+	SafetySettings []ChatCompletionSafetySetting
 }
 
 func NewClient(key string) *Client {
@@ -25,9 +25,11 @@ func NewClient(key string) *Client {
 
 }
 
-func (c *Client) CreateChatCompletion(contents []*Content) (*ResponseBody, error) {
+func (c *Client) CreateChatCompletion(contents []ChatCompletionMessage) (ChatCompletionResponse, error) {
 
-	query := &RequestBody{
+	var resp ChatCompletionResponse
+
+	query := ChatCompletionRequest{
 		Contents:       contents,
 		SafetySettings: c.SafetySettings,
 	}
@@ -40,19 +42,20 @@ func (c *Client) CreateChatCompletion(contents []*Content) (*ResponseBody, error
 	url := c.ApiBaseUrl + "/" + c.ApiVersion + "/models/" + c.Model + ":generateContent"
 	response, err := httpc.JsonPost(url, query, heaner)
 	if err != nil {
-		return nil, err
+		return resp, err
 	}
 
-	var resp ResponseBody
 	err = json.Unmarshal(response, &resp)
 
-	return &resp, err
+	return resp, err
 
 }
 
-func (c *Client) CreateImageCompletion(contents []*Content) (*ResponseBody, error) {
+func (c *Client) CreateVisionCompletion(contents []ChatCompletionMessage) (ChatCompletionResponse, error) {
 
-	query := &RequestBody{
+	var resp ChatCompletionResponse
+
+	query := &ChatCompletionRequest{
 		Contents:       contents,
 		SafetySettings: c.SafetySettings,
 	}
@@ -65,12 +68,11 @@ func (c *Client) CreateImageCompletion(contents []*Content) (*ResponseBody, erro
 	url := c.ApiBaseUrl + "/" + c.ApiVersion + "/models/gemini-pro-vision:generateContent"
 	response, err := httpc.JsonPost(url, query, heaner)
 	if err != nil {
-		return nil, err
+		return resp, err
 	}
 
-	var resp ResponseBody
 	err = json.Unmarshal(response, &resp)
 
-	return &resp, err
+	return resp, err
 
 }

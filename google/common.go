@@ -7,57 +7,57 @@ const ChatMessageRoleAssistant = "model"
 const ChatMessageRoleSystem = "user"
 const ChatMessageRoleUser = "user"
 
-// request
+// chat request
 
-type RequestBody struct {
-	Contents       []*Content       `json:"contents"`
-	SafetySettings []*SafetySetting `json:"safetySettings"`
+type ChatCompletionRequest struct {
+	Contents       []ChatCompletionMessage       `json:"contents"`
+	SafetySettings []ChatCompletionSafetySetting `json:"safetySettings"`
 }
 
-type Content struct {
-	Parts []*Part `json:"parts"`
-	Role  string  `json:"role,omitempty"`
+type ChatCompletionMessage struct {
+	Parts []ChatCompletionMessagePart `json:"parts"`
+	Role  string                      `json:"role"`
 }
 
-type Part struct {
-	Text       string      `json:"text,omitempty"`
-	InlineData *InlineData `json:"inline_data,omitempty"`
+type ChatCompletionMessagePart struct {
+	Text       string                    `json:"text,omitempty"`
+	InlineData *ChatCompletionInlineData `json:"inline_data,omitempty"`
 }
 
-type InlineData struct {
+type ChatCompletionInlineData struct {
 	MimeType string `json:"mime_type"`
 	Data     string `json:"data"`
 }
 
-type SafetySetting struct {
+type ChatCompletionSafetySetting struct {
 	Category  string `json:"category"`
 	Threshold string `json:"threshold"`
 }
 
-// response
+// chat response
 
-type ResponseBody struct {
-	Candidates     []*Candidate `json:"candidates"`
-	Error          *Error       `json:"error"`
+type ChatCompletionResponse struct {
+	Candidates     []ChatCompletionCandidate `json:"candidates"`
+	Error          ChatCompletionError       `json:"error"`
 	PromptFeedback struct {
-		BlockReason   string          `json:"blockReason"`
-		SafetyRatings []*SafetyRating `json:"safetyRatings"`
+		BlockReason   string                       `json:"blockReason"`
+		SafetyRatings []ChatCompletionSafetyRating `json:"safetyRatings"`
 	} `json:"promptFeedback"`
 }
 
-type Candidate struct {
-	Content       *Content        `json:"content"`
-	FinishReason  string          `json:"finishReason"`
-	Index         int             `json:"index"`
-	SafetyRatings []*SafetyRating `json:"safetyRatings"`
+type ChatCompletionCandidate struct {
+	Content       ChatCompletionMessage        `json:"content"`
+	FinishReason  string                       `json:"finishReason"`
+	Index         int                          `json:"index"`
+	SafetyRatings []ChatCompletionSafetyRating `json:"safetyRatings"`
 }
 
-type SafetyRating struct {
+type ChatCompletionSafetyRating struct {
 	Category    string `json:"category"`
 	Probability string `json:"probability"`
 }
 
-type Error struct {
+type ChatCompletionError struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 	Status  string `json:"status"`

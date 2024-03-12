@@ -11,7 +11,7 @@ type Client struct {
 	ApiVersion string
 	ApiKey     string
 	Model      string
-	Parameters *Parameters
+	Parameters ChatCompletionParameters
 }
 
 func NewClient(key string) *Client {
@@ -21,16 +21,18 @@ func NewClient(key string) *Client {
 		ApiVersion: ApiVersion,
 		ApiKey:     key,
 		Model:      "qwen-max",
-		Parameters: &Parameters{EnableSearch: true},
+		Parameters: ChatCompletionParameters{EnableSearch: true},
 	}
 
 }
 
-func (c *Client) CreateChatCompletion(messages []*Messages) (*ResponseBody, error) {
+func (c *Client) CreateChatCompletion(messages []ChatCompletionMessage) (ChatCompletionResponse, error) {
 
-	query := RequestBody{
+	var resp ChatCompletionResponse
+
+	query := ChatCompletionRequest{
 		Model:      c.Model,
-		Input:      Input{messages},
+		Input:      ChatCompletionInput{messages},
 		Parameters: c.Parameters,
 	}
 
@@ -42,12 +44,11 @@ func (c *Client) CreateChatCompletion(messages []*Messages) (*ResponseBody, erro
 	url := c.ApiBaseUrl + "/api/" + c.ApiVersion + "/services/aigc/text-generation/generation"
 	response, err := httpc.JsonPost(url, query, heaner)
 	if err != nil {
-		return nil, err
+		return resp, err
 	}
 
-	var resp ResponseBody
 	err = json.Unmarshal(response, &resp)
 
-	return &resp, err
+	return resp, err
 
 }

@@ -9,41 +9,41 @@ const ChatMessageRoleUser = "user"
 
 // request
 
-type RequestBody struct {
-	Model      string      `json:"model"`
-	Input      Input       `json:"input"`
-	Parameters *Parameters `json:"parameters"`
+type ChatCompletionRequest struct {
+	Model      string                   `json:"model"`
+	Input      ChatCompletionInput      `json:"input"`
+	Parameters ChatCompletionParameters `json:"parameters"`
 }
 
-type Input struct {
-	Messages []*Messages `json:"messages"`
+type ChatCompletionInput struct {
+	Messages []ChatCompletionMessage `json:"messages"`
 }
 
-type Parameters struct {
+type ChatCompletionParameters struct {
 	EnableSearch bool `json:"enable_search"`
 }
 
-type Messages struct {
+type ChatCompletionMessage struct {
 	Role    string `json:"role"`
 	Content string `json:"content"`
 }
 
 // response
 
-type ResponseBody struct {
-	Code      string `json:"code"`
-	Message   string `json:"message"`
-	Output    Output `json:"output"`
-	Usage     Usage  `json:"usage"`
-	RequestID string `json:"request_id"`
+type ChatCompletionResponse struct {
+	Code      string                `json:"code"`
+	Message   string                `json:"message"`
+	Output    ChatCompletioneOutput `json:"output"`
+	Usage     ChatCompletionUsage   `json:"usage"`
+	RequestID string                `json:"request_id"`
 }
 
-type Output struct {
+type ChatCompletioneOutput struct {
 	Text         string `json:"text"`
 	FinishReason string `json:"finish_reason"`
 }
 
-type Usage struct {
+type ChatCompletionUsage struct {
 	OutputTokens int `json:"output_tokens"`
 	InputTokens  int `json:"input_tokens"`
 }
