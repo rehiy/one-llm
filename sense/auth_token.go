@@ -2,8 +2,9 @@ package sense
 
 import (
 	"errors"
-	"github.com/golang-jwt/jwt"
 	"time"
+
+	"github.com/golang-jwt/jwt"
 )
 
 const defaultExpiresIn = 60 * time.Minute
