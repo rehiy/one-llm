@@ -2,14 +2,14 @@
 
 各大厂的大语言模型非官方 SDK。主要特色是低依赖，支持以下模型：
 
-- 百度千帆
-- 智谱 Ai
-- 腾讯混元
-- 讯飞星火
-- 商汤日日新
-- MinMax
-- 谷歌 Gemini
-- 阿里通义千问
+- `aliyun` 阿里通义千问
+- `baidu` 百度千帆（文心）
+- `google` 谷歌 Gemini
+- `minmax` MinMax
+- `sense` 商汤日日新
+- `tencent` 腾讯混元
+- `xunfei` 讯飞星火
+- `zhipu` 智谱 Ai
 
 ## 密钥申请
 
