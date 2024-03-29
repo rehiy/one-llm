@@ -80,10 +80,10 @@ type UserConfig struct {
 	// 腾讯混元 APP-ID,API-KEY,API-SECRET
 	// 阿里百炼（通义千问） APP-ID,AGENT-KEY,ACCESS_KEY_ID,ACCESS_KEY_SECRET
 	// 其他服务商 API-KEY
-	Secret        string        `json:"secret"`        // 密钥
-	RoleContext   string        `json:"roleContext"`   // 角色设定
-	MsgHistorys   []*MsgHistory `json:"msgHistorys"`   // 消息历史记录
-	MsgHistoryMax int           `json:"msgHistoryMax"` // 消息记录最大条数
+	Secret        string        `json:"secret"`          // 密钥
+	RoleContext   string        `json:"role_context"`    // 角色设定
+	MsgHistorys   []*MsgHistory `json:"msg_historys"`    // 消息历史记录
+	MsgHistoryMax int           `json:"msg_history_max"` // 消息记录最大条数
 }
 
 func (u *UserConfig) AddHistory(items ...*MsgHistory) {
