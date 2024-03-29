@@ -65,25 +65,25 @@ func Vison(msg, img string, llmc *UserConfig) string {
 // 用户配置
 
 type MsgHistory struct {
-	Role    string // user,assistant
-	Content string // 消息内容
+	Role    string `json:"role"`    // user,assistant
+	Content string `json:"content"` // 消息内容
 }
 
 type UserConfig struct {
-	Family   string // 族类描述
-	Provider string // 供应商
-	Endpoint string // 接口地址
-	Model    string // 模型
+	Family   string `json:"family"`   // 族类描述
+	Provider string `json:"provider"` // 供应商
+	Endpoint string `json:"endpoint"` // 接口地址
+	Model    string `json:"model"`    // 模型
 	// 密钥格式
 	// 科大讯飞 APP-ID,API-KEY,API-SECRET
 	// 文心一言 API-KEY,API-SECRET
 	// 腾讯混元 APP-ID,API-KEY,API-SECRET
 	// 阿里百炼（通义千问） APP-ID,AGENT-KEY,ACCESS_KEY_ID,ACCESS_KEY_SECRET
 	// 其他服务商 API-KEY
-	Secret        string        // 密钥
-	RoleContext   string        // 角色设定
-	MsgHistorys   []*MsgHistory // 消息历史记录
-	MsgHistoryMax int           // 消息记录最大条数
+	Secret        string        `json:"secret"`        // 密钥
+	RoleContext   string        `json:"roleContext"`   // 角色设定
+	MsgHistorys   []*MsgHistory `json:"msgHistorys"`   // 消息历史记录
+	MsgHistoryMax int           `json:"msgHistoryMax"` // 消息记录最大条数
 }
 
 func (u *UserConfig) AddHistory(items ...*MsgHistory) {
