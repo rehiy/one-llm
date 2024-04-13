@@ -13,7 +13,7 @@ func OpenaiText(ask string, llmc *UserConfig) (string, error) {
 	config := openai.DefaultConfig(llmc.Secret)
 
 	if len(llmc.Endpoint) > 1 {
-		config.BaseURL = llmc.Endpoint + "/v1"
+		config.BaseURL = llmc.Endpoint
 	}
 
 	client := openai.NewClientWithConfig(config)
