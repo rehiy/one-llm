@@ -88,11 +88,11 @@ type UserConfig struct {
 
 func (u *UserConfig) AddHistory(items ...*MsgHistory) {
 
-	if len(u.MsgHistorys) >= u.MsgHistoryMax {
-		u.MsgHistorys = u.MsgHistorys[len(items):]
-	}
-
 	u.MsgHistorys = append(u.MsgHistorys, items...)
+
+	if n := len(u.MsgHistorys) - u.MsgHistoryMax; n > 0 {
+		u.MsgHistorys = u.MsgHistorys[n:]
+	}
 
 }
 
